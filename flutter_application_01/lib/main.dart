@@ -4,8 +4,15 @@ void main() {
   runApp(const MaterialApp(home: HomePage()));
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int programmingLevel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +35,7 @@ class HomePage extends StatelessWidget {
                 radius: 40.0,
               ),
             ),
-            Divider(
-              height: 90.0,
-              color: Colors.grey[800],
-            ),
+            Divider(height: 90.0, color: Colors.grey[800]),
             Text(
               'NAME',
               style: TextStyle(color: Colors.grey, letterSpacing: 2.0),
@@ -53,7 +57,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10.0),
             Text(
-              '8',
+              '$programmingLevel',
               style: TextStyle(
                 color: Colors.amber[200],
                 letterSpacing: 2.0,
@@ -74,6 +78,15 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            programmingLevel++;
+          });
+        },
+        backgroundColor: Colors.grey[800],
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }
