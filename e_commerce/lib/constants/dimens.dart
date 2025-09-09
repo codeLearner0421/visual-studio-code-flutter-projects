@@ -30,11 +30,11 @@ class AppCardRadius {
 class AppImage {
   static const double widthSmall = 25.0;
   static const double widthNormal = 200.0;
-  static const double widthLarge = 300.0;
+  static const double widthLarge = 350.0;
 
   static const double heightSmall = 25.0;
   static const double heightNormal = 200.0;
-  static const double heightLarge = 300.0;
+  static const double heightLarge = 350.0;
 }
 
 class AppBoxSize {

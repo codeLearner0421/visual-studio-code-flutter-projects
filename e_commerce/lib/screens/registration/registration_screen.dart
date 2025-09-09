@@ -1,6 +1,7 @@
 import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
+import 'package:e_commerce/screens/email-verification/email_verification_screen.dart';
 import 'package:e_commerce/screens/registration/widgets/registration_form_widget.dart';
 import 'package:e_commerce/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,9 @@ class RegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Account Registration"),
+        title: Text(registrationTitle),
       ),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -31,7 +33,7 @@ class RegistrationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        registrationTitle,
+                        registrationDescription,
                         style: TextStyle(
                           fontSize: AppFontSize.large,
                           fontWeight: FontWeight.bold,
@@ -54,7 +56,9 @@ class RegistrationScreen extends StatelessWidget {
                     SizedBox(
                       width: AppButtonSize.normal,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => EmailVerificationScreen()));
+                        },
                         child: Text(
                           registrationCreateAccountTitle,
                           style: TextStyle(fontWeight: FontWeight.bold),
