@@ -20,6 +20,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       theme: ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: AppColors.primaryLight),
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
         fontFamily: "OpenSans",
       ),

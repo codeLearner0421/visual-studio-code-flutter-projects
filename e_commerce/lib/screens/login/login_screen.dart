@@ -111,14 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: AppButtonSize.normal,
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return RegistrationScreen();
-                                },
-                              ),
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => RegistrationScreen()));
                           },
                           child: Text(
                             loginCreateAccountTitle,
