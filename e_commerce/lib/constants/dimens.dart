@@ -23,6 +23,7 @@ class AppButtonSize {
 }
 
 class AppCardRadius {
+  static const double extraSmall = 10.0;
   static const double normal = 100.0;
 }
 
@@ -34,4 +35,8 @@ class AppImage {
   static const double heightSmall = 25.0;
   static const double heightNormal = 200.0;
   static const double heightLarge = 300.0;
+}
+
+class AppBoxSize {
+  static const double normal = 24.0;
 }
