@@ -2,6 +2,7 @@ import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:e_commerce/screens/login/widgets/login_form_widget.dart';
+import 'package:e_commerce/screens/password/password_forget_screen.dart';
 import 'package:e_commerce/screens/registration/registration_screen.dart';
 import 'package:e_commerce/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PasswordForgetScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               loginForgetPasswordTitle,
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -111,7 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: AppButtonSize.normal,
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => RegistrationScreen()));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => RegistrationScreen(),
+                              ),
+                            );
                           },
                           child: Text(
                             loginCreateAccountTitle,

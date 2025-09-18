@@ -1,7 +1,7 @@
 import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
-import 'package:e_commerce/screens/email-verification/email_verification_screen.dart';
+import 'package:e_commerce/screens/email/email_verification_screen.dart';
 import 'package:e_commerce/screens/registration/widgets/registration_form_widget.dart';
 import 'package:e_commerce/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class RegistrationScreen extends StatelessWidget {
                       width: AppButtonSize.normal,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => EmailVerificationScreen()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EmailVerificationScreen()));
                         },
                         child: Text(
                           registrationCreateAccountTitle,
