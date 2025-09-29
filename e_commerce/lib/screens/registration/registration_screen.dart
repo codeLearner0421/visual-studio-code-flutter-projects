@@ -6,16 +6,21 @@ import 'package:e_commerce/screens/registration/widgets/registration_form_widget
 import 'package:e_commerce/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(registrationTitle),
-      ),
+      appBar: AppBar(title: Text(registrationTitle)),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
@@ -40,7 +45,7 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: AppMargin.normal),
-                      registrationForm(),
+                      Form(key: _formKey, child: RegistrationForm()),
                     ],
                   ),
                 ),
@@ -49,7 +54,9 @@ class RegistrationScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.normal),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.normal,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -57,7 +64,15 @@ class RegistrationScreen extends StatelessWidget {
                       width: AppButtonSize.normal,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EmailVerificationScreen()));
+                          if (_formKey.currentState!.validate()) {
+                            
+                          }
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (_) => EmailVerificationScreen(),
+                          //   ),
+                          // );
                         },
                         child: Text(
                           registrationCreateAccountTitle,
@@ -111,7 +126,9 @@ class RegistrationScreen extends StatelessWidget {
                             icon: Image(
                               width: AppImage.widthSmall,
                               height: AppImage.heightSmall,
-                              image: AssetImage("assets/images/google_icon.png"),
+                              image: AssetImage(
+                                "assets/images/google_icon.png",
+                              ),
                             ),
                           ),
                         ),

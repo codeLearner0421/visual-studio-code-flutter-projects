@@ -50,3 +50,8 @@ const String passwordResetDescription =
     "Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Changed Your Password and Keep Your Account Protected.";
 const String passwordResetDoneTitle = "Done";
 const String passwordResetResendEmailTitle = "Resend Email";
+
+// Error Alert Message
+const String pleaseEnterYourTitle = "Please Enter Your ";
+const String pleaseEnterAValidEmailAddressTitle = "Please Enter a Valid Email Address";
+const String passwordMustBeAtLeast6CharactersLongTitle = "Password Must be at Least 6 Characters Long";
