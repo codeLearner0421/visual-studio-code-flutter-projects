@@ -28,7 +28,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   TextEditingController get phone => phoneController;
   TextEditingController get password => passwordController;
 
-  bool hidePasswordInitialState = true;
+  bool hidePassword = true;
 
   @override
   void dispose() {
@@ -169,16 +169,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
             }
             return null;
           },
-          obscureText: hidePasswordInitialState,
+          obscureText: hidePassword,
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.password),
             labelText: loginPasswordTitle,
             labelStyle: TextStyle(fontWeight: FontWeight.bold),
             suffixIcon: IconButton(
-              icon: Icon(hidePasswordInitialState ? Icons.visibility_off : Icons.visibility_sharp),
+              icon: Icon(hidePassword ? Icons.visibility_off : Icons.visibility_sharp),
               onPressed: () {
                 setState(() {
-                  hidePasswordInitialState = !hidePasswordInitialState;
+                  hidePassword = !hidePassword;
                 });
               },
             ),
