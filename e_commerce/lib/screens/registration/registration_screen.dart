@@ -1,9 +1,11 @@
 import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
+import 'package:e_commerce/onlineServices/firebaseModel.dart';
 import 'package:e_commerce/screens/email/email_verification_screen.dart';
 import 'package:e_commerce/screens/registration/widgets/registration_form_widget.dart';
 import 'package:e_commerce/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -15,6 +17,9 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
+  final registrationFormKey = GlobalKey<RegistrationFormState>();
+
+  final FirebaseModel firebaseModel = FirebaseModel();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                       ),
                       SizedBox(height: AppMargin.normal),
-                      Form(key: _formKey, child: RegistrationForm()),
+                      Form(
+                        key: _formKey,
+                        child: RegistrationForm(key: registrationFormKey),
+                      ),
                     ],
                   ),
                 ),
@@ -63,16 +71,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     SizedBox(
                       width: AppButtonSize.normal,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+                            final email = registrationFormKey
+                                .currentState!
+                                .email
+                                .text
+                                .trim();
+                            final password = registrationFormKey
+                                .currentState!
+                                .password
+                                .text
+                                .trim();
+
+                            final result = await firebaseModel.registerFirebaseAccount(
+                              email,
+                              password,
+                            );
                             
+                            scaffoldMessenger.showSnackBar(SnackBar(content: Text(result)));
+
+                            Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => EmailVerificationScreen(),
+                            ),
+                          );
                           }
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (_) => EmailVerificationScreen(),
-                          //   ),
-                          // );
                         },
                         child: Text(
                           registrationCreateAccountTitle,

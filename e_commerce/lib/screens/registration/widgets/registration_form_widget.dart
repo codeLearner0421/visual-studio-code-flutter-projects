@@ -9,10 +9,10 @@ class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
 
   @override
-  State<RegistrationForm> createState() => _RegistrationFormState();
+  State<RegistrationForm> createState() => RegistrationFormState();
 }
 
-class _RegistrationFormState extends State<RegistrationForm> {
+class RegistrationFormState extends State<RegistrationForm> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
