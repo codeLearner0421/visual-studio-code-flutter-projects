@@ -1,5 +1,5 @@
 import 'package:e_commerce/colors/colors.dart';
-import 'package:e_commerce/constants/dimens.dart';
+import 'package:e_commerce/constants/dimension.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:e_commerce/screens/login/widgets/login_form_widget.dart';
 import 'package:e_commerce/screens/password/password_forget_screen.dart';
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(height: AppMargin.normal),
-                      loginForm(),
+                      LoginForm(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

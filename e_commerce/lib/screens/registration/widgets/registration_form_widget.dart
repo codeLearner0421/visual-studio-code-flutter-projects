@@ -1,4 +1,4 @@
-import 'package:e_commerce/constants/dimens.dart';
+import 'package:e_commerce/constants/dimension.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:e_commerce/screens/registration/widgets/term_and_condition_checkbox.dart';
 import 'package:flutter/material.dart';

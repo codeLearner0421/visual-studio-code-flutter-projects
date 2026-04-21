@@ -1,11 +1,10 @@
 import 'package:e_commerce/colors/colors.dart';
-import 'package:e_commerce/constants/dimens.dart';
+import 'package:e_commerce/constants/dimension.dart';
 import 'package:e_commerce/constants/strings.dart';
-import 'package:e_commerce/onlineServices/firebaseModel.dart';
+import 'package:e_commerce/onlineServices/firebase_model.dart';
 import 'package:e_commerce/screens/email/email_verification_screen.dart';
 import 'package:e_commerce/screens/registration/widgets/registration_form_widget.dart';
 import 'package:e_commerce/utils/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -73,8 +72,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-
-                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+                            final scaffoldMessenger = ScaffoldMessenger.of(
+                              context,
+                            );
 
                             final email = registrationFormKey
                                 .currentState!
@@ -87,19 +87,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 .text
                                 .trim();
 
-                            final result = await firebaseModel.registerFirebaseAccount(
-                              email,
-                              password,
+                            final result = await firebaseModel
+                                .registerFirebaseAccount(email, password);
+
+                            scaffoldMessenger.showSnackBar(
+                              SnackBar(content: Text(result)),
                             );
-                            
-                            scaffoldMessenger.showSnackBar(SnackBar(content: Text(result)));
+
+                            if (!context.mounted) return;
 
                             Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => EmailVerificationScreen(),
-                            ),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EmailVerificationScreen(),
+                              ),
+                            );
                           }
                         },
                         child: Text(

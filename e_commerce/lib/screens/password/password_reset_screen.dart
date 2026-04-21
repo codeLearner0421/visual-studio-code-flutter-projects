@@ -1,5 +1,5 @@
 import 'package:e_commerce/colors/colors.dart';
-import 'package:e_commerce/constants/dimens.dart';
+import 'package:e_commerce/constants/dimension.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:e_commerce/screens/login/login_screen.dart';
 import 'package:e_commerce/screens/password/password_forget_screen.dart';
