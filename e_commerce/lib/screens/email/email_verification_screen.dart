@@ -3,6 +3,7 @@ import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:e_commerce/screens/email/email_verification_successful_screen.dart';
 import 'package:e_commerce/screens/login/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
@@ -53,7 +54,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppMargin.small),
                     Text(
-                      "youremailaddress@ecommerce.com",
+                      FirebaseAuth.instance.currentUser?.email ?? emailVerificationEmailNotFound,
                       style: TextStyle(
                         fontSize: AppFontSize.normal,
                         color: AppColors.primary,

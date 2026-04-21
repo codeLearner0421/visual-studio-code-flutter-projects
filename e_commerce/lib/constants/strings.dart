@@ -30,6 +30,7 @@ const String registrationOrSignUpWith = "Or Sign up With";
 const String emailVerificationTitle = "Verify your email address!";
 const String emailVerificationDescription =
     "Congratulations! Your Account Awaits: \nVerify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.";
+const String emailVerificationEmailNotFound = "Email not found";
 const String emailVerificationContinueTitle = "Continue";
 const String emailVerificationResendEmailTitle = "Resend Email";
 const String emailVerificationSuccessfulTitle =
@@ -50,3 +51,14 @@ const String passwordResetDescription =
     "Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Changed Your Password and Keep Your Account Protected.";
 const String passwordResetDoneTitle = "Done";
 const String passwordResetResendEmailTitle = "Resend Email";
+
+// Error Alert Message
+const String pleaseEnterYourTitle = "Please Enter Your ";
+const String pleaseEnterAValidEmailAddressTitle = "Please Enter a Valid Email Address";
+const String passwordMustBeAtLeast6CharactersLongTitle = "Password Must be at Least 6 Characters Long";
+
+// Firebase Message
+const String firebaseEmailVerificationSent = "An email has been sent to your for the verification";
+const String firebaseWeakPassword = "The password provided is too weak";
+const String firebaseAccountAlreadyExists = "The account already exists for that email";
+const String firebaseUnknownError = "An unknown Firebase error occurred";

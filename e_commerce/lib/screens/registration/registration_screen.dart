@@ -1,21 +1,31 @@
 import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimens.dart';
 import 'package:e_commerce/constants/strings.dart';
+import 'package:e_commerce/onlineServices/firebaseModel.dart';
 import 'package:e_commerce/screens/email/email_verification_screen.dart';
 import 'package:e_commerce/screens/registration/widgets/registration_form_widget.dart';
 import 'package:e_commerce/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final registrationFormKey = GlobalKey<RegistrationFormState>();
+
+  final FirebaseModel firebaseModel = FirebaseModel();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(registrationTitle),
-      ),
+      appBar: AppBar(title: Text(registrationTitle)),
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
@@ -40,7 +50,10 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: AppMargin.normal),
-                      registrationForm(),
+                      Form(
+                        key: _formKey,
+                        child: RegistrationForm(key: registrationFormKey),
+                      ),
                     ],
                   ),
                 ),
@@ -49,15 +62,45 @@ class RegistrationScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.normal),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.normal,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: AppButtonSize.normal,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => EmailVerificationScreen()));
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+                            final email = registrationFormKey
+                                .currentState!
+                                .email
+                                .text
+                                .trim();
+                            final password = registrationFormKey
+                                .currentState!
+                                .password
+                                .text
+                                .trim();
+
+                            final result = await firebaseModel.registerFirebaseAccount(
+                              email,
+                              password,
+                            );
+                            
+                            scaffoldMessenger.showSnackBar(SnackBar(content: Text(result)));
+
+                            Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => EmailVerificationScreen(),
+                            ),
+                          );
+                          }
                         },
                         child: Text(
                           registrationCreateAccountTitle,
@@ -111,7 +154,9 @@ class RegistrationScreen extends StatelessWidget {
                             icon: Image(
                               width: AppImage.widthSmall,
                               height: AppImage.heightSmall,
-                              image: AssetImage("assets/images/google_icon.png"),
+                              image: AssetImage(
+                                "assets/images/google_icon.png",
+                              ),
                             ),
                           ),
                         ),
