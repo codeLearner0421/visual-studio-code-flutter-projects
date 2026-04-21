@@ -76,19 +76,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               context,
                             );
 
-                            final email = registrationFormKey
-                                .currentState!
-                                .email
-                                .text
-                                .trim();
-                            final password = registrationFormKey
-                                .currentState!
-                                .password
-                                .text
-                                .trim();
+                            final form = registrationFormKey.currentState!;
+                            final firstName = form.firstName.text.trim();
+                            final lastName = form.lastName.text.trim();
+                            final username = form.username.text.trim();
+                            final phoneNumber = form.phone.text.trim();
+                            final email = form.email.text.trim();
+                            final password = form.password.text.trim();
 
-                            final result = await firebaseModel
-                                .registerFirebaseAccount(email, password);
+                            final result = await firebaseModel.registerFirebaseAccount(
+                              email: email,
+                              password: password,
+                              firstName: firstName,
+                              lastName: lastName,
+                              username: username,
+                              phoneNumber: phoneNumber,
+                            );
 
                             scaffoldMessenger.showSnackBar(
                               SnackBar(content: Text(result)),
@@ -96,12 +99,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                             if (!context.mounted) return;
 
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => EmailVerificationScreen(),
-                              ),
-                            );
+                            if (result == firebaseEmailVerificationSent) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      EmailVerificationScreen(email: email),
+                                ),
+                              );
+                            }
                           }
                         },
                         child: Text(
