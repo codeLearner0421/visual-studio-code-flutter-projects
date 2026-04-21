@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 
+final RegExp _nameLettersOnlyValidator = RegExp(lettersOnlyTextInputValidator);
+final RegExp _nameLettersInputFilter = RegExp(
+  lettersOnlyFilteringTextInputFormatter,
+);
+
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
 
@@ -50,9 +55,15 @@ class RegistrationFormState extends State<RegistrationForm> {
             Expanded(
               child: TextFormField(
                 controller: firstNameController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(_nameLettersInputFilter),
+                ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return pleaseEnterYourTitle + registrationFirstNameTitle;
+                  }
+                  if (!_nameLettersOnlyValidator.hasMatch(value.trim())) {
+                    return registrationNameLettersOnlyTitle;
                   }
                   return null;
                 },
@@ -73,9 +84,15 @@ class RegistrationFormState extends State<RegistrationForm> {
             Expanded(
               child: TextFormField(
                 controller: lastNameController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(_nameLettersInputFilter),
+                ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return pleaseEnterYourTitle + registrationLastNameTitle;
+                  }
+                  if (!_nameLettersOnlyValidator.hasMatch(value.trim())) {
+                    return registrationNameLettersOnlyTitle;
                   }
                   return null;
                 },
@@ -120,8 +137,7 @@ class RegistrationFormState extends State<RegistrationForm> {
             if (value == null || value.isEmpty) {
               return pleaseEnterYourTitle + registrationEmailTitle;
             }
-            if (!EmailValidator.validate(value.trim()))
-            {
+            if (!EmailValidator.validate(value.trim())) {
               return pleaseEnterAValidEmailAddressTitle;
             }
             return null;
@@ -139,9 +155,7 @@ class RegistrationFormState extends State<RegistrationForm> {
         TextFormField(
           controller: phoneController,
           keyboardType: TextInputType.number,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly
-          ],
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           validator: (value) {
             if (value == null || value.isEmpty) {
               return pleaseEnterYourTitle + registrationPhoneNumberTitle;
@@ -175,7 +189,9 @@ class RegistrationFormState extends State<RegistrationForm> {
             labelText: loginPasswordTitle,
             labelStyle: TextStyle(fontWeight: FontWeight.bold),
             suffixIcon: IconButton(
-              icon: Icon(hidePassword ? Icons.visibility_off : Icons.visibility_sharp),
+              icon: Icon(
+                hidePassword ? Icons.visibility_off : Icons.visibility_sharp,
+              ),
               onPressed: () {
                 setState(() {
                   hidePassword = !hidePassword;

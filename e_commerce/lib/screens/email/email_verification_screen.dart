@@ -7,10 +7,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
-  const EmailVerificationScreen({super.key});
+  const EmailVerificationScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
+    final displayEmail = email.isNotEmpty
+        ? email
+        : (FirebaseAuth.instance.currentUser?.email ??
+            emailVerificationEmailNotFound);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -54,7 +60,7 @@ class EmailVerificationScreen extends StatelessWidget {
                     ),
                     SizedBox(height: AppMargin.small),
                     Text(
-                      FirebaseAuth.instance.currentUser?.email ?? emailVerificationEmailNotFound,
+                      displayEmail,
                       style: TextStyle(
                         fontSize: AppFontSize.normal,
                         color: AppColors.primary,

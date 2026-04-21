@@ -54,11 +54,21 @@ const String passwordResetResendEmailTitle = "Resend Email";
 
 // Error Alert Message
 const String pleaseEnterYourTitle = "Please Enter Your ";
-const String pleaseEnterAValidEmailAddressTitle = "Please Enter a Valid Email Address";
-const String passwordMustBeAtLeast6CharactersLongTitle = "Password Must be at Least 6 Characters Long";
+const String pleaseEnterAValidEmailAddressTitle =
+    "Please Enter a Valid Email Address";
+const String passwordMustBeAtLeast6CharactersLongTitle =
+    "Password Must be at Least 6 Characters Long";
+const String registrationNameLettersOnlyTitle =
+    "First and last name may only contain letters and spaces between words (e.g. Mei Jie). No numbers or other symbols.";
+const String lettersOnlyTextInputValidator = r'^[a-zA-Z]+(?: [a-zA-Z]+)*$';
+const String lettersOnlyFilteringTextInputFormatter = r'[a-zA-Z ]';
 
 // Firebase Message
-const String firebaseEmailVerificationSent = "An email has been sent to your for the verification";
+const String firebaseEmailVerificationSent =
+    "An email has been sent to your for the verification";
 const String firebaseWeakPassword = "The password provided is too weak";
-const String firebaseAccountAlreadyExists = "The account already exists for that email";
+const String firebaseAccountAlreadyExists =
+    "The account already exists for that email";
 const String firebaseUnknownError = "An unknown Firebase error occurred";
+const String firebaseProfileSaveFailed =
+    "Account was created but we could not save your profile. Please try signing in.";
