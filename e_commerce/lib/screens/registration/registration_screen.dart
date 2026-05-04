@@ -17,7 +17,6 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
   final registrationFormKey = GlobalKey<RegistrationFormState>();
-
   final FirebaseModel firebaseModel = FirebaseModel();
 
   @override

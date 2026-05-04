@@ -1,6 +1,7 @@
 import 'package:e_commerce/colors/colors.dart';
 import 'package:e_commerce/constants/dimension.dart';
 import 'package:e_commerce/constants/strings.dart';
+import 'package:e_commerce/onlineServices/firebase_model.dart';
 import 'package:e_commerce/screens/login/widgets/login_form_widget.dart';
 import 'package:e_commerce/screens/password/password_forget_screen.dart';
 import 'package:e_commerce/screens/registration/registration_screen.dart';
@@ -15,10 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final _formKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<LoginFormState>();
+  final FirebaseModel firebaseModel = FirebaseModel();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(height: AppMargin.normal),
-                      LoginForm(),
+                      Form(
+                        key: _formKey,
+                        child: LoginForm(key: loginFormKey),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -107,7 +110,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width: AppButtonSize.normal,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async{
+                            if (_formKey.currentState!.validate()) {
+                              final scaffoldMessenger = ScaffoldMessenger.of(
+                                context,
+                              );
+
+                              final form = loginFormKey.currentState!;
+                              final email = form.email.text.trim();
+                              final password = form.password.text.trim();
+
+                              final result = await firebaseModel.loginFirebaseAccount(
+                                email: email,
+                                password: password,
+                              );
+
+                              scaffoldMessenger.showSnackBar(
+                                SnackBar(content: Text(result)),
+                              );
+                            }
+                          },
                           child: Text(
                             loginSignInTitle,
                             style: TextStyle(fontWeight: FontWeight.bold),

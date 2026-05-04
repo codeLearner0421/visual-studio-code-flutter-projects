@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/constants/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseModel {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -38,12 +37,51 @@ class FirebaseModel {
       await user.sendEmailVerification();
       return firebaseEmailVerificationSent;
     } on FirebaseAuthException catch (e) {
-      if (e.code == "weak-password") {
-        return firebaseWeakPassword;
-      } else if (e.code == "email-already-in-use") {
-        return firebaseAccountAlreadyExists;
-      } else {
-        return e.message ?? firebaseUnknownError;
+      switch (e.code) {
+        case 'weak-password':
+          return firebaseWeakPassword;
+
+        case 'email-already-in-use':
+          return firebaseAccountAlreadyExists;
+
+        default:
+          final message = e.message;
+          return (message != null && message.isNotEmpty)
+              ? "$registrationFailed: $message"
+              : firebaseUnknownError;
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  Future<String> loginFirebaseAccount({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return loginSuccessful;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          return firebaseAccountNotExist;
+        case 'wrong-password':
+          return firebaseIncorrectPassword;
+        case 'invalid-email':
+          return firebaseInvalidEmail;
+        case 'user-disabled':
+          return firebaseAccountDisabled;
+        case 'too-many-requests':
+          return firebaseTooManyRequests;
+        default:
+          final message = e.message;
+          return (message != null && message.isNotEmpty)
+              ? "$loginFailed: $message"
+              : firebaseUnknownError;
       }
     } catch (e) {
       return e.toString();

@@ -9,6 +9,8 @@ const String loginForgetPasswordTitle = "Forget Password";
 const String loginSignInTitle = "Sign In";
 const String loginCreateAccountTitle = "Create an Account";
 const String loginOrSignInWith = "Or Sign in With";
+const String loginSuccessful = "Login Successful";
+const String loginFailed = "Login Failed";
 
 // Registration Screen
 const String registrationTitle = "Create an Account";
@@ -25,6 +27,7 @@ const String registrationAnd = "and";
 const String registrationTermOfUse = "Term Of Use";
 const String registrationCreateAccountTitle = "Create Account";
 const String registrationOrSignUpWith = "Or Sign up With";
+const String registrationFailed = "Registration Failed";
 
 // Email Verification Screen
 const String emailVerificationTitle = "Verify your email address!";
@@ -72,3 +75,8 @@ const String firebaseAccountAlreadyExists =
 const String firebaseUnknownError = "An unknown Firebase error occurred";
 const String firebaseProfileSaveFailed =
     "Account was created but we could not save your profile. Please try signing in.";
+const String firebaseAccountNotExist = "Account does not exist for that email.";
+const String firebaseIncorrectPassword = "Incorrect password.";
+const String firebaseInvalidEmail = "Invalid email.";
+const String firebaseAccountDisabled = "This account has been disabled.";
+const String firebaseTooManyRequests = "Too many attempts. Try again later.";
